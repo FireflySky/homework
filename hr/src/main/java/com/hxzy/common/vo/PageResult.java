@@ -24,4 +24,19 @@ public class PageResult<T> {
      */
    private List<T> data;
 
+    public int getTotals() {
+        return totals;
+    }
+
+    public void setTotals(int totals) {
+        this.totals = totals;
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
+    }
 }

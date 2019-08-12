@@ -47,7 +47,7 @@ public class JDBCUtil {
             dataSource.setUsername(prop.getProperty("jdbc.username"));
             dataSource.setPassword(prop.getProperty("jdbc.password"));
         } catch (IOException e) {
-            log.error(e.getMessage());
+//            log.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -76,7 +76,7 @@ public class JDBCUtil {
                 //3、存放到本地线程池中
                 this.threadLocal.set(conn);
             } catch (SQLException e) {
-                log.error(e.getMessage());
+//                log.error(e.getMessage());
                 e.printStackTrace();
             }
         }
