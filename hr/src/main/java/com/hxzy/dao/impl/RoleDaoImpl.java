@@ -22,13 +22,24 @@ import java.util.List;
  * @comment 角色数据访问实现类
  */
 public class RoleDaoImpl  implements RoleDao{
+
+    LinkedList<Object> paramValues=null;
+    StringBuffer sql=null;
+    List<Role> arrList=null;
+    PreparedStatement  prep=null;
+    String sqlCount=null;
+    Connection conn=null;
+    ResultSet rst=null;
+    //总记录数
+    int totals=0;
+
     @Override
     public PageResult<Role> searchPaging(PageSearchVO pageSearchVO) {
 
         RoleSearchVO  searchVO=(RoleSearchVO) pageSearchVO;
 
-        StringBuffer sql=new StringBuffer("select * from  role where 1=1  and status=1 ");
-        LinkedList<Object> paramValues=new LinkedList<>();
+        sql =new StringBuffer("select * from  role where 1=1  and status=1 ");
+        paramValues =new LinkedList<>();
         /**
          * 如果名称不为空
          */
@@ -42,49 +53,25 @@ public class RoleDaoImpl  implements RoleDao{
         paramValues.add(searchVO.getLimit());
 
         //得到count(*)语句
-        String sqlCount=JDBCUtil.getCountSql(sql.toString());
+        sqlCount=JDBCUtil.getCountSql(sql.toString());
 
         //执行操作
-        Connection conn=JDBCUtil.getJdbcUtil().getConnection();
-        PreparedStatement  prep=null;
-        ResultSet rst=null;
-        //总记录数
-        int totals=0;
+        conn=JDBCUtil.getJdbcUtil().getConnection();
 
-        List<Role> arrList=new ArrayList<>();
+
+        //总记录数
+        arrList=new ArrayList<>();
 
         try {
             //1、查询 分页的对象
             prep=conn.prepareStatement(sql.toString());
-            for(int i=0;i<paramValues.size();i++){
-                prep.setObject(i+1, paramValues.get(i));
-            }
-            rst=prep.executeQuery();
-            while(rst.next()){
-                Role  role=new Role();
-                role.setId(rst.getInt("id"));
-                role.setName(rst.getString("name"));
-                role.setStatus(rst.getInt("status"));
-                arrList.add(role);
-            }
-            rst.close();
-            prep.close();
-
+            filter("");
             paramValues.removeLast();
             paramValues.removeLast();
 
             //2、查询总记录数
             prep=conn.prepareStatement(sqlCount);
-            for(int i=0;i<paramValues.size();i++){
-                prep.setObject(i+1, paramValues.get(i));
-            }
-            rst=prep.executeQuery();
-
-            while(rst.next()){
-                totals=rst.getInt(1);
-            }
-            rst.close();
-            prep.close();
+            filter("count");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,6 +81,30 @@ public class RoleDaoImpl  implements RoleDao{
         pageResult.setTotals(totals);
         pageResult.setData(arrList);
         return pageResult;
+    }
+
+
+    private void filter(String tag) throws SQLException {
+        for (int i = 0; i < paramValues.size(); i++) {
+            prep.setObject(i + 1, paramValues.get(i));
+        }
+        rst = prep.executeQuery();
+        if(tag.equals("count")) {
+            while(rst.next()){
+                totals=rst.getInt(1);
+            }
+        }else{
+            while (rst.next()) {
+                Role role = new Role();
+                role.setId(rst.getInt("id"));
+                role.setName(rst.getString("name"));
+                role.setStatus(rst.getInt("status"));
+                arrList.add(role);
+            }
+
+        }
+        rst.close();
+        prep.close();
     }
 
     @Override
@@ -124,7 +135,6 @@ public class RoleDaoImpl  implements RoleDao{
     @Override
     public int update(Role obj) {
         int count=0;
-
         PreparedStatement prep=null;
         String sql="update role set name=?,status=? where id=?";
         try {

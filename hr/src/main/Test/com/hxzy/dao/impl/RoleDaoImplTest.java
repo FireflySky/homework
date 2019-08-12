@@ -2,7 +2,9 @@ package com.hxzy.dao.impl;
 
 import com.hxzy.common.util.JDBCUtil;
 import com.hxzy.common.vo.PageResult;
+import com.hxzy.dao.DatadDao;
 import com.hxzy.dao.RoleDao;
+import com.hxzy.entity.Datad;
 import com.hxzy.entity.Role;
 import com.hxzy.vo.RoleSearchVO;
 import org.junit.After;
@@ -20,10 +22,12 @@ import static org.junit.Assert.*;
 public class RoleDaoImplTest {
 
     private RoleDao  roleDao=null;
+    private DatadDao datad=null;
 
     @Before
     public void setUp() throws Exception {
         roleDao=new RoleDaoImpl();
+        datad=new DatadDaoImpl();
     }
 
 
@@ -56,16 +60,21 @@ public class RoleDaoImplTest {
 
     @Test
     public void testPage(){
-        String sql="select * from role where  1=1 and status=1";
+//        String sql="select * from role where  1=1 and status=1";
+        String sql="select * from datadictionary where  1=1 and status=1";
         RoleSearchVO  searchVo=new RoleSearchVO();
         searchVo.setOffset(0);
         searchVo.setLimit(5);
-        searchVo.setName("员");
+        searchVo.setName("科");
         //查询
-        PageResult<Role> pg=this.roleDao.searchPaging(searchVo);
+//        PageResult<Role> pg=this.roleDao.searchPaging(searchVo);
+        PageResult<Datad> pg=this.datad.searchPaging(searchVo);
 
         System.out.println(pg.getTotals());
-        for(Role  r : pg.getData()){
+        /*for(Role  r : pg.getData()){
+            System.out.println(r.getName());
+        }*/
+        for(Datad  r : pg.getData()){
             System.out.println(r.getName());
         }
 
