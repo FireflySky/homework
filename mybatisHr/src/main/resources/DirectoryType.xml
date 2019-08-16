@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Collections>
+    <item>
+        <text>性别</text>
+        <typeId>1</typeId>
+    </item>
+    <item>
+        <text>学历</text>
+        <typeId>2</typeId>
+    </item>
+    <item>
+        <text>婚姻状态</text>
+        <typeId>3</typeId>
+    </item>
+    <item>
+        <text>政治面貌</text>
+        <typeId>4</typeId>
+    </item>
+    <item>
+        <text>职务级别</text>
+        <typeId>5</typeId>
+    </item>
+    <item>
+        <text>职称</text>
+        <typeId>6</typeId>
+    </item>
+    <item>
+        <text>没旷</text>
+        <typeId>7</typeId>
+    </item>
+</Collections>

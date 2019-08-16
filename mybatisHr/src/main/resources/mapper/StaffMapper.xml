@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxzy.mapper.StaffMapper">
+
+    <insert id="insert" parameterType="com.hxzy.entity.Staff" useGeneratedKeys="true" keyProperty="id">
+        insert into staff (name, ename,
+                           sex, borthday, politic, department,
+                           company, jobs, nation,
+                           marriage, nativee,
+                           identityid,positionlevel,
+                           positiontitle, status,
+                           coemployment, filenumber,
+                           filelocation,height,
+                           weight, bloodtype, strengths,
+                           hobbies)
+        values (#{name,jdbcType=VARCHAR}, #{ename,jdbcType=VARCHAR},
+                #{sex,jdbcType=CHAR}, #{borthday,jdbcType=DATE}, #{politic,jdbcType=INTEGER}, #{department,jdbcType=INTEGER},
+                #{company,jdbcType=INTEGER}, #{jobs,jdbcType=INTEGER}, #{nation,jdbcType=INTEGER},
+                #{marriage,jdbcType=INTEGER}, #{nativee,jdbcType=VARCHAR},
+                #{identityid,jdbcType=VARCHAR},#{positionlevel,jdbcType=INTEGER},
+                #{positiontitle,jdbcType=INTEGER},#{status,jdbcType=INTEGER},
+                #{coemployment,jdbcType=INTEGER}, #{filenumber,jdbcType=VARCHAR},
+                #{filelocation,jdbcType=VARCHAR},#{height,jdbcType=REAL},
+                #{weight,jdbcType=REAL}, #{bloodtype,jdbcType=INTEGER}, #{strengths,jdbcType=VARCHAR},
+                #{hobbies,jdbcType=VARCHAR})
+    </insert>
+
+
+    <update id="update" parameterType="com.hxzy.entity.Staff">
+        update staff
+        set name = #{name,jdbcType=VARCHAR},
+            ename = #{ename,jdbcType=VARCHAR},
+            sex = #{sex,jdbcType=CHAR},
+            borthday = #{borthday,jdbcType=DATE},
+            politic = #{politic,jdbcType=INTEGER},
+            department = #{department,jdbcType=INTEGER},
+            company = #{company,jdbcType=INTEGER},
+            jobs = #{jobs,jdbcType=INTEGER},
+            nation = #{nation,jdbcType=INTEGER},
+            marriage = #{marriage,jdbcType=INTEGER},
+            health = #{health,jdbcType=INTEGER},
+            nativee = #{nativee,jdbcType=VARCHAR},
+            identityid = #{identityid,jdbcType=VARCHAR},
+            position = #{position,jdbcType=INTEGER},
+            positionlevel = #{positionlevel,jdbcType=INTEGER},
+            positiontitle = #{positiontitle,jdbcType=INTEGER},
+            positiontitlelevel = #{positiontitlelevel,jdbcType=INTEGER},
+            status = #{status,jdbcType=INTEGER},
+            coemployment = #{coemployment,jdbcType=INTEGER},
+            classificaton = #{classificaton,jdbcType=INTEGER},
+            filenumber = #{filenumber,jdbcType=VARCHAR},
+            filelocation = #{filelocation,jdbcType=VARCHAR},
+            worktype = #{worktype,jdbcType=INTEGER},
+            height = #{height,jdbcType=REAL},
+            weight = #{weight,jdbcType=REAL},
+            bloodtype = #{bloodtype,jdbcType=INTEGER},
+            strengths = #{strengths,jdbcType=VARCHAR},
+            hobbies = #{hobbies,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--按条件更新(选择性更新) -->
+    <update id="updateSelective" parameterType="com.hxzy.entity.Staff">
+        update staff
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="ename != null">
+                ename = #{ename,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="borthday != null">
+                borthday = #{borthday,jdbcType=DATE},
+            </if>
+            <if test="politic != null">
+                politic = #{politic,jdbcType=INTEGER},
+            </if>
+            <if test="department != null">
+                department = #{department,jdbcType=INTEGER},
+            </if>
+            <if test="company != null">
+                company = #{company,jdbcType=INTEGER},
+            </if>
+            <if test="jobs != null">
+                jobs = #{jobs,jdbcType=INTEGER},
+            </if>
+            <if test="nation != null">
+                nation = #{nation,jdbcType=INTEGER},
+            </if>
+            <if test="marriage != null">
+                marriage = #{marriage,jdbcType=INTEGER},
+            </if>
+            <if test="health != null">
+                health = #{health,jdbcType=INTEGER},
+            </if>
+            <if test="nativee != null">
+                nativee = #{nativee,jdbcType=VARCHAR},
+            </if>
+            <if test="identityid != null">
+                identityid = #{identityid,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                position = #{position,jdbcType=INTEGER},
+            </if>
+            <if test="positionlevel != null">
+                positionlevel = #{positionlevel,jdbcType=INTEGER},
+            </if>
+            <if test="positiontitle != null">
+                positiontitle = #{positiontitle,jdbcType=INTEGER},
+            </if>
+            <if test="positiontitlelevel != null">
+                positiontitlelevel = #{positiontitlelevel,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="coemployment != null">
+                coemployment = #{coemployment,jdbcType=INTEGER},
+            </if>
+            <if test="classificaton != null">
+                classificaton = #{classificaton,jdbcType=INTEGER},
+            </if>
+            <if test="filenumber != null">
+                filenumber = #{filenumber,jdbcType=VARCHAR},
+            </if>
+            <if test="filelocation != null">
+                filelocation = #{filelocation,jdbcType=VARCHAR},
+            </if>
+            <if test="worktype != null">
+                worktype = #{worktype,jdbcType=INTEGER},
+            </if>
+            <if test="height != null">
+                height = #{height,jdbcType=REAL},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=REAL},
+            </if>
+            <if test="bloodtype != null">
+                bloodtype = #{bloodtype,jdbcType=INTEGER},
+            </if>
+            <if test="strengths != null">
+                strengths = #{strengths,jdbcType=VARCHAR},
+            </if>
+            <if test="hobbies != null">
+                hobbies = #{hobbies,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <!-- 返回的是自定义结果集，不再是普通的java对象了-->
+    <select id="search" parameterType="com.hxzy.vo.StaffVO" resultType="com.hxzy.entity.Staff">
+        SELECT
+        view_staff.id,        view_staff.`name`,
+        view_staff.sex,        view_staff.borthday,
+        view_staff.age,        view_staff.company,
+        view_staff.companyName,        view_staff.department,
+        view_staff.departmentName,        view_staff.jobs,
+        view_staff.jobsName,        view_staff.nation,
+        view_staff.nationName,
+        view_staff.coemployment,        view_staff.coemploymentName
+        FROM
+        view_staff
+        where 1=1  and  view_staff.`status`=1
+
+        <if test="name!=null">
+            and  name like #{name}
+        </if>
+
+        <if test="coemployment!=null  and coemployment>0 ">
+            and   coemployment= #{coemployment}
+        </if>
+
+
+        <!--多条件自己加 if -->
+
+        order by id
+
+        <if test="offset!=null and limit!=null">
+            limit #{offset},#{limit}
+        </if>
+    </select>
+
+    <!--按条件查询-->
+    <select id="findOne" parameterType="java.lang.Integer" resultType="com.hxzy.entity.Staff">
+        select  *
+        from view_staff
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+
+
+</mapper>
